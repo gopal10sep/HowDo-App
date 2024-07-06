@@ -3,6 +3,11 @@
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import Image from 'next/image';
+
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+  // You can add any additional props here if needed
+}
 
 export function Landing() {
   return (
@@ -84,10 +89,10 @@ export function Landing() {
                   </div>
                   </div>
                 </div>
-                <img
+                <Image
                   src="/placeholder.svg"
-                  width="550"
-                  height="550"
+                  width={550}
+                  height={550}
                   alt="Hero"
                   className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
                 />
@@ -109,13 +114,13 @@ export function Landing() {
                 </div>
               </div>
               <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-                <img
-                  src="/placeholder.svg"
-                  width="550"
-                  height="310"
-                  alt="Image"
-                  className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
-                />
+              <Image
+                src="/placeholder.svg"
+                width={550}
+                height={310}
+                alt="Image"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+              />
                 <div className="flex flex-col justify-center space-y-4">
                   <ul className="grid gap-6">
                     <li>
@@ -166,7 +171,7 @@ export function Landing() {
                   Experience the Power of HowDo.AI
                 </h2>
                 <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Unlock your business's full potential with the guidance of HowDo.AI. Get started today and see the
+                  Unlock your business&apos;s full potential with the guidance of HowDo.AI. Get started today and see the
                   difference it can make.
                 </p>
               </div>
@@ -223,7 +228,7 @@ export function Landing() {
   )
 }
 
-function MountainIcon(props) {
+function MountainIcon(props: IconProps) {
   return (
     <svg
       {...props}

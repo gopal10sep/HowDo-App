@@ -1,5 +1,4 @@
 import React from 'react';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
@@ -7,7 +6,24 @@ import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link"
 import { SignedIn, SignedOut, UserButton, RedirectToSignIn } from '@clerk/nextjs'
 
-export function Chat({ messages, input, handleInputChange, handleSubmit }) {
+
+interface ChatProps {
+  messages: Array<{
+    id: string;
+    role: 'user' | 'assistant' | 'system' | 'function' | 'data' | 'tool';
+    content: string;
+    createdAt?: Date | string;
+  }>;
+  input: string;
+  handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleSubmit: () => void;
+}
+
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+  // You can add any additional props here if needed
+}
+
+export function Chat({ messages, input, handleInputChange, handleSubmit }: ChatProps) {
   return (
     <>
       <SignedIn>
@@ -122,27 +138,37 @@ export function Chat({ messages, input, handleInputChange, handleSubmit }) {
             </Sheet>
             <div className="flex flex-1 flex-col bg-white overflow-auto">
               <div className="flex-1 p-6">
-                {messages.map((m, index) => (
-                      <div key={index} className="flex items-start gap-4 mt-6">
-                        <Avatar className="h-10 w-10 border">
-                          <AvatarImage src="/placeholder-user.jpg" />
-                          <AvatarFallback>{m.role === 'user' ? 'U' : 'AI'}</AvatarFallback>
-                        </Avatar>
-                        <div className="grid gap-1">
-                          <div className="flex items-center gap-2">
-                            <div className="font-bold">{m.role === 'user' ? 'You' : 'HowDo.ai'}</div>
-                            <div className="text-xs text-muted-foreground">{new Date(m.createdAt).toLocaleTimeString()}</div>
-                          </div>
-                          <div>
-                            {m.content.includes('<') && m.content.includes('>') ? (
-                              <div className="citations" dangerouslySetInnerHTML={{ __html: m.content }} />
-                            ) : (
-                              <p>{m.content}</p>
-                            )}
-                          </div>
-                        </div>
+              {messages.map((m) => (
+                <div key={m.id} className="flex items-start gap-4 mt-6">
+                  <Avatar className="h-10 w-10 border">
+                    <AvatarImage src="/placeholder-user.jpg" />
+                    <AvatarFallback>
+                      {m.role === 'user' ? 'U' : 
+                      m.role === 'assistant' ? 'AI' : 
+                      m.role.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="grid gap-1">
+                    <div className="flex items-center gap-2">
+                      <div className="font-bold">
+                        {m.role === 'user' ? 'You' : 
+                        m.role === 'assistant' ? 'HowDo.ai' : 
+                        m.role.charAt(0).toUpperCase() + m.role.slice(1)}
                       </div>
-                    ))}
+                      <div className="text-xs text-muted-foreground">
+                        {new Date().toLocaleTimeString()}
+                      </div>
+                    </div>
+                    <div>
+                      {m.content.includes('<') && m.content.includes('>') ? (
+                        <div className="citations" dangerouslySetInnerHTML={{ __html: m.content }} />
+                      ) : (
+                        <p>{m.content}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
               </div>
               <div className="max-w-2xl w-full sticky bottom-0 mx-auto py-2 flex flex-col gap-1.5 px-4 bg-white">
                 <div className="relative">
@@ -183,7 +209,8 @@ export function Chat({ messages, input, handleInputChange, handleSubmit }) {
   )
 }
 
-function ArrowUpIcon(props) {
+
+function ArrowUpIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -203,8 +230,7 @@ function ArrowUpIcon(props) {
   )
 }
 
-
-function BookIcon(props) {
+function BookIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -223,8 +249,7 @@ function BookIcon(props) {
   )
 }
 
-
-function BotIcon(props) {
+function BotIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -248,8 +273,7 @@ function BotIcon(props) {
   )
 }
 
-
-function HomeIcon(props) {
+function HomeIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -269,8 +293,7 @@ function HomeIcon(props) {
   )
 }
 
-
-function MenuIcon(props) {
+function MenuIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -291,8 +314,7 @@ function MenuIcon(props) {
   )
 }
 
-
-function MessageCircleIcon(props) {
+function MessageCircleIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -311,8 +333,7 @@ function MessageCircleIcon(props) {
   )
 }
 
-
-function UsersIcon(props) {
+function UsersIcon(props: IconProps) {
   return (
     <svg
       {...props}

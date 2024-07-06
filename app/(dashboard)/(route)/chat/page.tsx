@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { useChat } from 'ai/react';
-import { Chat as CustomChat } from '@/components/component/chat';
-import { Inter } from 'next/font/google';
+import { useChat } from 'ai/react'
+import { Chat as CustomChat } from '@/components/component/chat'
+import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const { messages, input, handleInputChange, handleSubmit } = useChat()
 
   return (
     <div className={inter.className}>
@@ -18,5 +18,5 @@ export default function Chat() {
         handleSubmit={handleSubmit}
       />
     </div>
-  );
+  )
 }
