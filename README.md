@@ -4,7 +4,7 @@
 
 ## Architecture
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/mbQf8iV"  ><a href="//imgur.com/a/mbQf8iV">App architechture</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+![HowDo-App Architecture](https://imgur.com/0028F0a.png)
 
 ## Features
 
