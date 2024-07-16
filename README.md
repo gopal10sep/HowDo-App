@@ -4,7 +4,8 @@
 
 ## Architecture
 
-![HowDo-App Architecture](https://imgur.com/0028F0a.png)
+![HowDo-App Architecture](https://imgur.com/aHpSDC3.png)
+
 
 ## Features
 
